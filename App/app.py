@@ -60,3 +60,5 @@ if not df.empty:
     st.dataframe(df)
 else:
     st.info("Nenhum dado para exibir.")
+
+
