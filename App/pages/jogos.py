@@ -1,20 +1,19 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import datetime
 from datetime import date
 
 st.title("Jogos do Dia")
 
-dia = st.date_input(
-"Data de Análise",
-  date.today())
+dia = st.date_input("Data de Análise", date.today())
 
-def load_data_jogos():
-  data_jogos = pd.read_csv("https://github.com/jonathancarlos508/YouTube/blob/main/Jogos_do_Dia/FootyStats/Jogos_do_Dia_FootyStats_"+str(dia)+".csv?raw=true")
+@st.cache_data  # opcional, mas acelera o app se você abrir a mesma data várias vezes
+def load_data_jogos(d):
+    url = (
+        "https://github.com/jonathancarlos508/YouTube/blob/main/"
+        f"Jogos_do_Dia/FootyStats/Jogos_do_Dia_FootyStats_{d}.csv?raw=true"
+    )
+    return pd.read_csv(url)
 
-return data_jogos
-
-df_jogos = load_data_jogos()
+df_jogos = load_data_jogos(dia)
 
 st.dataframe(df_jogos)
